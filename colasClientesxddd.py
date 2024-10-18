@@ -20,15 +20,31 @@ class Cola:
 
 class SistemaColas:
     def __init__(self):
+        # Definir 5 colas con nombres de servicios
         self.servicios = {
-            1: Cola(),  # Cola para servicio 1
-            2: Cola(),  # Cola para servicio 2
-            3: Cola()   # Cola para servicio 3
+            1: Cola(),  # Cola para "Seguro de Vida"
+            2: Cola(),  # Cola para "Seguro de Carro"
+            3: Cola(),  # Cola para "Seguro de Desastres Naturales"
+            4: Cola(),  # Cola para "Seguro de Salud"
+            5: Cola()   # Cola para "Seguro de Viajes"
         }
+
+        # Contadores de atención para cada servicio
         self.numeros_atencion = {
-            1: 0,  # Número de atención para servicio 1
-            2: 0,  # Número de atención para servicio 2
-            3: 0   # Número de atención para servicio 3
+            1: 0,  # Número de atención para "Seguro de Vida"
+            2: 0,  # Número de atención para "Seguro de Carro"
+            3: 0,  # Número de atención para "Seguro de Desastres Naturales"
+            4: 0,  # Número de atención para "Seguro de Salud"
+            5: 0   # Número de atención para "Seguro de Viajes"
+        }
+
+        # Nombres descriptivos de los servicios
+        self.nombres_servicios = {
+            1: "Seguro de Vida",
+            2: "Seguro de Carro",
+            3: "Seguro de Desastres Naturales",
+            4: "Seguro de Salud",
+            5: "Seguro de Viajes"
         }
 
     def llegada_cliente(self, servicio):
@@ -36,7 +52,7 @@ class SistemaColas:
             self.numeros_atencion[servicio] += 1
             numero_asignado = self.numeros_atencion[servicio]
             self.servicios[servicio].encolar(numero_asignado)
-            print(f"Cliente {numero_asignado} asignado al servicio {servicio}.")
+            print(f"Cliente {numero_asignado} asignado al servicio {self.nombres_servicios[servicio]}.")
         else:
             print("Servicio no válido.")
 
@@ -44,16 +60,15 @@ class SistemaColas:
         if servicio in self.servicios:
             if not self.servicios[servicio].esta_vacia():
                 cliente_atendido = self.servicios[servicio].desencolar()
-                print(f"Atendiendo al cliente {cliente_atendido} del servicio {servicio}.")
+                print(f"Atendiendo al cliente {cliente_atendido} del servicio {self.nombres_servicios[servicio]}.")
             else:
-                print(f"No hay clientes en la cola del servicio {servicio}.")
+                print(f"No hay clientes en la cola del servicio {self.nombres_servicios[servicio]}.")
         else:
             print("Servicio no válido.")
 
     def ejecutar(self):
         while True:
-            comando = input("Ingrese un comando (C para llegada, A para atender, S para salir): ").strip().upper()
-
+            comando = input("Ingrese un comando (C para llegada, A para atender, S para salir): \n 1 para Seguro de Vida \n 2 para  Seguro de Carro \n 3 Seguro de Desastres Naturales \n 4 Seguro de Salud \n 5 Seguro de Viajes \n ").strip().upper()
             if comando == 'S':
                 print("Saliendo del sistema.")
                 break
@@ -71,7 +86,6 @@ class SistemaColas:
                     print("Formato incorrecto. Use A seguido del número del servicio.")
             else:
                 print("Comando no válido. Intente de nuevo.")
-
 
 # Ejemplo de uso
 sistema = SistemaColas()
